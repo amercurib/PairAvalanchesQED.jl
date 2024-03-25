@@ -24,8 +24,9 @@ b0_high_factor= 45*3^(2/3)*spe.gamma(2/3)^4/(56*pi*pi) #constant for high chi as
 b0_low_factor = 3/16*(3/2)^(1.5) #constant for low chi asymptot
 
 #import the table to speed up the computation of b0
-Table_b0 = jld.load("tables/b0_table.jld","b0")
-chi_table_b0 = jld.load("tables/b0_table.jld","chi")
+path_table_b0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","b0_table.jld")
+Table_b0 = jld.load(path_table_b0,"b0")
+chi_table_b0 = jld.load(path_table_b0,"chi")
 size_table_b0 = length(Table_b0)
 chi_min_b0 = chi_table_b0[1]
 chi_max_b0 = last(chi_table_b0)
@@ -106,8 +107,9 @@ c0_low_factor = sqrt(3)/(4*pi)*3*spe.gamma(1/6)*spe.gamma(11/6) #constant for lo
 c0_high_factor = sqrt(3)/(4*pi)*3^(2/3)*spe.gamma(2/3)*(2*spe.gamma(5/3)*spe.gamma(1/3) + spe.gamma(2/3)*spe.gamma(7/3)/2) #constant for high chi asymptot
 
 #import the table to speed up the computation of c0
-Table_c0 = jld.load("tables/c0_table.jld","c0")
-chi_table_c0 = jld.load("tables/c0_table.jld","chi")
+path_table_c0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","c0_table.jld")
+Table_c0 = jld.load(path_table_c0,"c0")
+chi_table_c0 = jld.load(path_table_c0,"chi")
 size_table_c0 = length(Table_c0)
 chi_min_c0 = chi_table_c0[1]
 chi_max_c0 = last(chi_table_c0)
