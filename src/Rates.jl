@@ -1,6 +1,6 @@
 
 module Rates
-
+using ..PairAvalanchesQED
 ### Physical constants for computations (SI units)
 e = 1.602176620e-19 #elementary charge
 hbar = 1.054571628e-34 #reduced Planck constant
@@ -189,7 +189,7 @@ end
 
 export compute_c0_table
     
-function compute_b0_table(filename,Npoints_table=35000,min_chi=0.001,max_chi=10000,period_show_progress = 1000)
+function compute_c0_table(filename,Npoints_table=35000,min_chi=0.001,max_chi=10000,period_show_progress = 1000)
     log10_min_chi, log10_max_chi = log10(min_chi), log10(max_chi)
     log10_chi = LinRange(log10_min_chi,log10_max_chi,Npoints_table)
     CHI = 10 .^ log10_chi
