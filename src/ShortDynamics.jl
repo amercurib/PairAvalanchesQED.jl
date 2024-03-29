@@ -18,7 +18,7 @@ me = 9.109382616e-31 #electron mass
 export chi_e_SI
 
 function chi_e_SI(epsilon,weff,t)
-    return e*e*hbar/(me^3*c^4)*epsilon*epsilon*weff*t*t
+    return e*e*hbar/(me^3. *c^4.)*epsilon*epsilon*weff*t*t
 end
 
 
@@ -33,7 +33,7 @@ export chi_e
 
 function chi_e(epsilon,weff,t,lambda=8e-7)#time should be given in laser period, epsilon in a0, omega_eff in omega
     omega = 2*pi*c/lambda
-    return 4*pi^2*hbar*epsilon*epsilon*weff*omega*t*t/(me*c^2)
+    return 4*pi^2. *hbar*epsilon*epsilon*weff*omega*t*t/(me*c^2.)
 end
 
 
