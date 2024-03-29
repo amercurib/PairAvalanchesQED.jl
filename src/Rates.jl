@@ -12,7 +12,7 @@ E_mass_e = me*c*c #electron rest energy
 W0 = 2*alpha*me*c*c/(3*hbar) #constant rate multiplicative factor appearing in SF processes rates
 TW0 = 1/W0 #corresponding time of W0 rate
 re = 2.8179e-15 #classical radius of the electron
-
+ES = me^2. * c^3. / (e*hbar) #Schwinger field
 
 import SpecialFunctions as spe
 import QuadGK as qgk
@@ -20,11 +20,11 @@ import JLD as jld
 
 ### Nonlinear Breit-Wheeler process
 
-b0_high_factor= 45*3^(2/3)*spe.gamma(2/3)^4/(56*pi*pi) #constant for high chi asymptot
+b0_high_factor= 45*3^(2/3)*spe.gamma(2/3)^4. /(56*pi*pi) #constant for high chi asymptot
 b0_low_factor = 3/16*(3/2)^(1.5) #constant for low chi asymptot
 
 #import the table to speed up the computation of b0
-path_table_b0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","b0_table.jld")
+path_table_b0 = joinpath(pkgdir(PairAvalanchesQED),"tables","b0_table.jld")
 Table_b0 = jld.load(path_table_b0,"b0")
 chi_table_b0 = jld.load(path_table_b0,"chi")
 size_table_b0 = length(Table_b0)
@@ -96,9 +96,23 @@ function b0_from_integral(chi) #integrated f_rad for xi from 0 to 1
 end
 
 
-####!!!!! Put function to make the table here !!!!!####
-
-
+export compute_b0_table
+    
+function compute_b0_table(filename,Npoints_table=30000,min_chi=0.01,max_chi=10000,period_show_progress = 1000)
+    log10_min_chi, log10_max_chi = log10(min_chi), log10(max_chi)
+    log10_chi = LinRange(log10_min_chi,log10_max_chi,Npoints_table)
+    CHI = 10 .^ log10_chi
+    b0_from_integration = zeros(Npoints_table)
+    println("Starting table computation")
+    for i = 1:Npoints_table 
+        if i %period_show_progress == 0
+            println("Step $(i)/$(Npoints_table)")
+        end
+        b0_from_integration[i] = b0_from_integral(CHI[i])
+    end
+    println("Table is finished!")
+    jld.save("filename", "chi", CHI, "b0", b0_from_integration)
+end
 
 
 ### Nonlinear Compton Scattering
@@ -107,7 +121,7 @@ c0_low_factor = sqrt(3)/(4*pi)*3*spe.gamma(1/6)*spe.gamma(11/6) #constant for lo
 c0_high_factor = sqrt(3)/(4*pi)*3^(2/3)*spe.gamma(2/3)*(2*spe.gamma(5/3)*spe.gamma(1/3) + spe.gamma(2/3)*spe.gamma(7/3)/2) #constant for high chi asymptot
 
 #import the table to speed up the computation of c0
-path_table_c0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","c0_table.jld")
+path_table_c0 = joinpath(pkgdir(PairAvalanchesQED),"tables","c0_table.jld")
 Table_c0 = jld.load(path_table_c0,"c0")
 chi_table_c0 = jld.load(path_table_c0,"chi")
 size_table_c0 = length(Table_c0)
@@ -173,6 +187,22 @@ function c0_from_integral(chi) #integrated f_rad for xi from 0 to 1
     return qgk.quadgk(xi -> f_rad(xi,chi), 0, 1, rtol=1e-8)[1]
 end
 
-####!!!!! Put function to make the table here !!!!!####
+export compute_c0_table
+    
+function compute_b0_table(filename,Npoints_table=35000,min_chi=0.001,max_chi=10000,period_show_progress = 1000)
+    log10_min_chi, log10_max_chi = log10(min_chi), log10(max_chi)
+    log10_chi = LinRange(log10_min_chi,log10_max_chi,Npoints_table)
+    CHI = 10 .^ log10_chi
+    c0_from_integration = zeros(Npoints_table)
+    println("Starting table computation")
+    for i = 1:Npoints_table 
+        if i %period_show_progress == 0
+            println("Step $(i)/$(Npoints_table)")
+        end
+        c0_from_integration[i] = c0_from_integral(CHI[i])
+    end
+    println("Table is finished!")
+    jld.save("filename", "chi", CHI, "c0", c0_from_integration)
+end
 
 end
