@@ -1,4 +1,14 @@
+
+#=
+module path_tables
+export path_table_b0
+path_table_b0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","b0_table.jld")
+export path_table_c0
+path_table_c0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","c0_table.jld")
+end
+=#
 module PairAvalanchesQED
+path_table_b0 = joinpath(pkgdir("PairAvalanchesQED"),"tables","b0_table.jld")
 
 #SFQED Rates part
 export b0_low_chi, b0_high_chi, b0, Wnbw_SI, Wnbw, b0_from_integral, compute_b0_table, c0_low_chi, c0_high_chi, c0, Wncs_SI, Wncs, c0_from_integral,  compute_c0_table

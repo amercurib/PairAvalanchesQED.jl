@@ -1,6 +1,6 @@
 
 module Rates
-
+using ..PairAvalanchesQED
 ### Physical constants for computations (SI units)
 e = 1.602176620e-19 #elementary charge
 hbar = 1.054571628e-34 #reduced Planck constant
