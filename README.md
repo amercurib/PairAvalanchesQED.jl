@@ -63,8 +63,8 @@ returns the value of the function $b_0(\chi_{\gamma})$ without using the tables 
 
     By default the parameters of this table are as used by the package. However more arguments can be passed to tune the output: `compute_b0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
   * `Npoints_table`: number of points of the table, by default `30000`.
-  * `min_chi`: minimum quantum parameter of the table, bu default `0.01`.
-  * `ax_chi`: maximum quantum parameter of the table, bu default `10000`.
+  * `min_chi`: minimum quantum parameter of the table, by default `0.01`.
+  * `max_chi`: maximum quantum parameter of the table, by default `10000`.
   * `period_show_progress`: number of table points after which to print the computation status, by default `1000`.
 
 #### Nonlinear inverse Compton scattering
@@ -91,8 +91,8 @@ returns the value of the function $c_0(\chi_{e})$ without using the tables and a
 
     By default the parameters of this table are as used by the package. However more arguments can be passed to tune the output: `compute_c0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
   * `Npoints_table`: number of points of the table, by default `35000`.
-  * `min_chi`: minimum quantum parameter of the table, bu default `0.001`.
-  * `ax_chi`: maximum quantum parameter of the table, bu default `10000`.
+  * `min_chi`: minimum quantum parameter of the table, by default `0.001`.
+  * `max_chi`: maximum quantum parameter of the table, by default `10000`.
   * `period_show_progress`: number of table points between each print of the computation status, by default `1000`.
 
 ### Short time dynamics model
