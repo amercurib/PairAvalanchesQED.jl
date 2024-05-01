@@ -204,7 +204,7 @@ In the following will be explained the intermediate functions used to build `wef
   returns the Lorentz invariants $\mathcal{F}$ and $\epsilon$ over space for a given field configuration. `EB_T`is the same as for `weff_epsilon_from_field`.
 
 * `make_TF(EB_T)`
-  returns the components electromagnetic field strength tensor $F^{\mu}_{\phantom{1} \nu}$ corresponding to the field configuration `EB_T`. The results is therefore a 5 dimensional array, where the first three indices are the space coordinates and the last two are the component of the field strength tensor `EB_T` is the same as for `weff_epsilon_from_field`.
+  returns the components electromagnetic field strength tensor $F^{\mu}_{\, \, \, \nu}$ corresponding to the field configuration `EB_T`. The results is therefore a 5 dimensional array, where the first three indices are the space coordinates and the last two are the component of the field strength tensor `EB_T` is the same as for `weff_epsilon_from_field`.
 
 * `make_square_field_tensor(TF)`
   returns the square matrix of the components of the electromagnetic tensor, given the tensor components over space `TF`.
@@ -213,7 +213,7 @@ In the following will be explained the intermediate functions used to build `wef
   returns the spatial derivatives and time derivatives (using Maxwell's equations) of the components of the field over space contained in `EB_T`. The results has therefore on more dimension than `EB_T`where the indices corresponds to the time and space derivatives (in this order). The parameters are the same as for `weff_epsilon_from_field`.
 
 * `make_derivative_tensor(DEB_T)`
-  given the derivatives of the fields over space `DEB_T` from the `computing_derivatives_EB` function, build the derivatives of the electromagnetic tensor components $F^{\mu}_{\phantom{1} \nu , \sigma}$.
+  given the derivatives of the fields over space `DEB_T` from the `computing_derivatives_EB` function, build the derivatives of the electromagnetic tensor components $F^{\mu}_{\, \, \, \, \nu , \sigma}$.
 
 * `make_J_matrix(Eps_inv,TF2)`
   * computes the $J$ matrix over space, and returns its values in a 5 dimensional array. `Eps_inv` is a 4 dimensional array of $\epsilon$ over space and `TF2` is the square matrix of the electromagnetic field components as given by the function `make_square_field_tensor`.
