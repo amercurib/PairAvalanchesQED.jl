@@ -230,7 +230,7 @@ In the following will be explained the intermediate functions used to build `wef
 
 * `compute_weff(F_inv,DTF,Jm1,f1_low,f1)`
   returns the value of $\omega_{\textrm{eff}}$ over space given the intermediate quantities provided by the previously described functions.
-    * `F_inv` is the $\mathcal{F} invariant over space,
+    * `F_inv` is the $\mathcal{F}$ invariant over space,
     * `DTF` is the array of the derivative of the electromagnetic tensor components over space,
     * `Jm1` is the inverse of the $J$ matrix over space,
     * `f1_low` is the array of the lowered components of the `f1` eigen 4-vector over space,
