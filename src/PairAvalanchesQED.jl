@@ -16,7 +16,7 @@ using .ShortDynamics
 
 
 #Avalanche model part
-export int_Wncs, solve_tem, chi_em, gamma_em, GR_steady_state, GR_CPSW_MidIntensity, GR_pure_rotating_MidIntensity, GR_CPSW_eps2weff_MidIntensity, GR_CPSW_HighIntensity, GR_pure_rotating_HighIntensity, GR_CPSW_eps2weff_HighIntensity, GR_CPSW, GR_pure_rotating, GR_CPSW_eps2weff
+export int_Wncs, solve_tem, chi_em, gamma_em, GR_steady_state, GR_CPSW_MidIntensity, GR_pure_rotating_MidIntensity, GR_CPSW_MidIntensity_eps2weff, GR_CPSW_HighIntensity, GR_pure_rotating_HighIntensity, GR_CPSW_HighIntensity_eps2weff, GR_CPSW, GR_pure_rotating, GR_CPSW_eps2weff
 include("AvalancheModelRotatingConfigs.jl")
 using .AvalancheModelRotatingConfigs
 

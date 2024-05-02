@@ -72,9 +72,9 @@ function GR_pure_rotating_MidIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=
 end
 
 
-export GR_CPSW_eps2weff_MidIntensity
+export GR_CPSW_MidIntensity_eps2weff
 
-function GR_CPSW_eps2weff(epsilon,eps2weff,Nu,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
+function GR_CPSW_MidIntensity_eps2weff(epsilon,eps2weff,Nu,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
     weff = eps2weff/(epsilon*epsilon)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     Wrad = Wgam_t(epsilon,weff,tem,lambda)
