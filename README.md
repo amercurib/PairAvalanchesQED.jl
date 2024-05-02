@@ -34,12 +34,12 @@ import PairAvalanchesQED as avalanches
 The package is mainly used to be able to predict avalanches growth rates in strong electromagnetic field configurations. The functions used to do these estimate are presented in the following. After the main section, all of the intermediate functions used to achieve the growth rates computations are described. In the following $\omega$ is the reference (laser) frequency and $\tau$ the (laser) period such that $\omega = 2 \pi c/\tau$. 
 
 ### Table of contents
-1. [Growth Rates predictions](https://github.com/amercurib/PairAvalanchesQED.jl#growth-rates-predictions)
-2. [Strong-Field QED processes rates](https://github.com/amercurib/PairAvalanchesQED.jl#strong-field-qed-processes-rates)
-    1. [Nonlinear Breit-Wheeler pair production](https://github.com/amercurib/PairAvalanchesQED.jl#nonlinear-breit-wheeler-pair-production)
-    2. [Nonlinear inverse Compton scattering](https://github.com/amercurib/PairAvalanchesQED.jl#nonlinear-inverse-compton-scattering)
-3. [Short time dynamics model](https://github.com/amercurib/PairAvalanchesQED.jl#short-time-dynamics-model)
-4. [Invariants and effective frequency](https://github.com/amercurib/PairAvalanchesQED.jl#invariants-and-effective-frequency)
+1. [Growth Rates predictions](#growth-rates-predictions)
+2. [Strong-Field QED processes rates](#strong-field-qed-processes-rates)
+    1. [Nonlinear Breit-Wheeler pair production](#nonlinear-breit-wheeler-pair-production)
+    2. [Nonlinear inverse Compton scattering](#nonlinear-inverse-compton-scattering)
+3. [Short time dynamics model](#short-time-dynamics-model)
+4. [Invariants and effective frequency](#invariants-and-effective-frequency)
 
 ### Growth Rates predictions 
 The main functions of this modules are the following, which can be used to compute growth rate estimates. the default values of the functions for optional parameters are set to be the same as in the publication.
