@@ -31,7 +31,7 @@ import PairAvalanchesQED as avalanches
 
 ## Documentation
 
-The package is mainly used to be able to predict avalanches growth rates in strong electromagnetic field configurations. The functions used to do these estimate are presented in the following. After the main section, all of the intermediate functions used to achieve the growth rates computations are described. In the following $\omega$ is the reference (laser) frequency and $\tau$ the (laser) period such that $\omega = 2 \pi c/\tau$. 
+The package is mainly used to be able to predict avalanches growth rates in strong electromagnetic field configurations. The functions used to do these estimate are presented in the following. After the main section, all of the intermediate functions used to achieve the growth rates computations are described. In the following $\omega$ is the reference (laser) frequency and $\tau$ the (laser) period such that $\omega = 2 \pi/\tau$. 
 
 ### Table of contents
 1. [Growth Rates predictions](#growth-rates-predictions)
