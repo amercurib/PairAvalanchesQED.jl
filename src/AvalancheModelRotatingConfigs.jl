@@ -92,8 +92,8 @@ function GR_CPSW_HighIntensity(epsilon,weff,Nu=1,lambda=8e-7,beta=1,tem_precisio
     omega = 2*pi*c/lambda
     a0S = e *ES/(me*c*omega)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
-    Wgam = Wgam_t_normT(epsilon,weff,tem,lambda)
-    Wpair = epsilon/a0S * Wnbw_normT(1,1,lambda)
+    Wgam = Wgam_t(epsilon,weff,tem,lambda)
+    Wpair = epsilon/a0S * Wnbw(1,1,lambda)
     return GR_steady_state(Wgam,Wpair,Nu)
 end
 
@@ -112,8 +112,8 @@ function GR_CPSW_HighIntensity_eps2weff(epsilon,eps2weff,Nu=1,lambda=8e-7,beta=1
     omega = 2*pi*c/lambda
     a0S = e *ES/(me*c*omega)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
-    Wgam = Wgam_t_normT(epsilon,weff,tem,lambda)
-    Wpair = epsilon/a0S * Wnbw_normT(1,1,lambda)
+    Wgam = Wgam_t(epsilon,weff,tem,lambda)
+    Wpair = epsilon/a0S * Wnbw(1,1,lambda)
     return GR_steady_state(Wgam,Wpair,Nu)
 end
 
