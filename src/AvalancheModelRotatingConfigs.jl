@@ -47,89 +47,88 @@ end
 # Estimation of the growth rate
 export GR_steady_state
 
-function GR_steady_state(Wrad,Wcr,Nu) #formula of the growth rate from quasi steady state assumption, rates in 1/tau
-    delta = (Wcr-Nu)*(Wcr-Nu) - 4*Wcr*(Nu - 2*Wrad)
-    return 0.5*(sqrt(delta)-Wcr -Nu)
+function GR_steady_state(Wrad,Wcr,Nu,Nug) #formula of the growth rate from quasi steady state assumption, rates in 1/tau
+    delta = (Wcr + Nug -Nu)^2. + 8*Wcr*Wrad
+    return 0.5*(-(Wcr + Nug + Nu) + sqrt(delta))
 end
-
 
 # Estimate at mid and low intensities
 
-export GR_CPSW_MidIntensity
+export GR_constant_MidIntensity
 
-function GR_CPSW_MidIntensity(epsilon,weff,Nu,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
+function GR_constant_MidIntensity(epsilon,weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     Wrad = Wgam_t(epsilon,weff,tem,lambda)
     Wcr = Wpair_t(epsilon,weff,tem,lambda)
-    return GR_steady_state(Wrad,Wcr,Nu)
+    return GR_steady_state(Wrad,Wcr,Nu,Nug)
 end
 
 
 export GR_pure_rotating_MidIntensity
 
-function GR_pure_rotating_MidIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)# Pure rotating field is a particular case of CPSW with nu = 0 and weff = 0.5omega
-    return GR_CPSW(epsilon,0.5,0,lambda,beta,tem_precision)
+function GR_pure_rotating_MidIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)# Pure rotating field is a particular case of CPSW with Nu = Nug= 0 and weff = 0.5omega
+    return GR_constant_MidIntensity(epsilon,0.5,0,0,lambda,beta,tem_precision)
 end
 
 
-export GR_CPSW_MidIntensity_eps2weff
+export GR_constant_MidIntensity_eps2weff
 
-function GR_CPSW_MidIntensity_eps2weff(epsilon,eps2weff,Nu,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
+function GR_constant_MidIntensity_eps2weff(epsilon,eps2weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)#epsilon in a0, weff in omega nu in 1/tau
     weff = eps2weff/(epsilon*epsilon)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     Wrad = Wgam_t(epsilon,weff,tem,lambda)
     Wcr = Wpair_t(epsilon,weff,tem,lambda)
-    return GR_steady_state(Wrad,Wcr,Nu)
+    return GR_steady_state(Wrad,Wcr,Nu,Nug)
 end
 
 
 #Estimate a high intensity
 
 
-export GR_CPSW_HighIntensity
+export GR_constant_HighIntensity
 
-function GR_CPSW_HighIntensity(epsilon,weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)
+function GR_constant_HighIntensity(epsilon,weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)
     omega = 2*pi*c/lambda
     a0S = e *ES/(me*c*omega)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     Wgam = Wgam_t(epsilon,weff,tem,lambda)
     Wpair = epsilon/a0S * Wnbw(1,1,lambda)
-    return GR_steady_state(Wgam,Wpair,Nu)
+    return GR_steady_state(Wgam,Wpair,Nu,Nug)
 end
 
 
 export GR_pure_rotating_HighIntensity
 
 function GR_pure_rotating_HighIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)
-    GR_CPSW_HighIntensity(epsilon,0.5,0,lambda,beta,tem_precision)
+    GR_constant_HighIntensity(epsilon,0.5,0,0,lambda,beta,tem_precision)
 end
 
 
-export GR_pure_rotating_HighIntensity_eps2weff
+export GR_constant_HighIntensity_eps2weff
 
-function GR_CPSW_HighIntensity_eps2weff(epsilon,eps2weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)
+function GR_constant_HighIntensity_eps2weff(epsilon,eps2weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)
     weff = eps2weff/(epsilon*epsilon)
     omega = 2*pi*c/lambda
     a0S = e *ES/(me*c*omega)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     Wgam = Wgam_t(epsilon,weff,tem,lambda)
     Wpair = epsilon/a0S * Wnbw(1,1,lambda)
-    return GR_steady_state(Wgam,Wpair,Nu)
+    return GR_steady_state(Wgam,Wpair,Nu,Nug)
 end
 
 
 # Overall model combining all intensities
 
 
-export GR_CPSW
+export GR_constant
 
-function GR_CPSW(epsilon,weff,Nu=1,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
+function GR_constant(epsilon,weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     chi_em = chi_e(epsilon,weff,tem,lambda)
     if chi_em < chi_switch
-        return GR_CPSW_MidIntensity(epsilon,weff,Nu,lambda,beta,tem_precision)
+        return GR_constant_MidIntensity(epsilon,weff,Nu,Nug,lambda,beta,tem_precision)
     else 
-        return GR_CPSW_HighIntensity(epsilon,weff,Nu,lambda,beta,tem_precision)
+        return GR_constant_HighIntensity(epsilon,weff,Nu,Nug,lambda,beta,tem_precision)
     end
 end
 
@@ -147,15 +146,15 @@ function GR_pure_rotating(epsilon,lambda=8e-7,chi_switch=10,beta=1,tem_precision
 end
 
 
-export GR_CPSW_eps2weff
+export GR_constant_eps2weff
 
-function GR_CPSW_esp2weff(epsilon,esp2weff,Nu=1,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
+function GR_CPSW_esp2weff(epsilon,esp2weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     chi_em = chi_e(epsilon,weff,tem,lambda)
     if chi_em < chi_switch
-        return GR_CPSW_MidIntensity_esp2weff(epsilon,esp2weff,Nu,lambda,beta,tem_precision)
+        return GR_constant_MidIntensity_esp2weff(epsilon,esp2weff,Nu,Nug,lambda,beta,tem_precision)
     else 
-        return GR_CPSW_HighIntensity_esp2weff(epsilon,esp2weff,Nu,lambda,beta,tem_precision)
+        return GR_constant_HighIntensity_esp2weff(epsilon,esp2weff,Nu,Nug,lambda,beta,tem_precision)
     end
 end
 
