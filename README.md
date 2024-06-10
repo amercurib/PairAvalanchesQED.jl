@@ -45,35 +45,36 @@ The package is mainly used to be able to predict avalanches growth rates in stro
 The main functions of this module in the following can be used to compute growth rate estimates. The default values for optional parameters in the functions are set to be the same as in the publication.
 
 
-* `GR_CPSW(epsilon,weff,Nu=1,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)`
+* `GR_constant(epsilon,weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)`
   returns the growth rate prediction for a circularly polarised standing wave normalized to $1/\tau$. 
-    * `epsilon` is the invariant $\epsilon$, should be given with the same normalization as the laser field strength $a_0$ (Arseny: not very clear, maybe provide the explicit normalization?).
+    * `epsilon` is the invariant $\epsilon$, should be given with the same normalization as the normalized laser field strength $a_0$, meaning $\frac{e\epsilon}{mc\omega}$ .
     * `weff` is the effective frequency $\omega_{\rm eff}$ in units of $\omega$.
-    * `Nu` is the migration rate $\nu$ in units of $1/\tau$, default value is `1`.
+    * `Nu` is the migration rate of charges $\nu$ in units of $1/\tau$.
+    * `Nug` is the migration rate of photons $\nu_{\gamma}$ in units of $1/\tau$.
     * `lambda` the reference laser wavelength, by default $\lambda = 0.8 \,  \mu\rm{m}$.
     * `chi_switch` is the threshold value of the quantum dynamical parameter at emission $\chi_{\textrm{em}}$ above which the result is given from the high field model, the default value is `10`.
     * `beta` is the $\beta$ constant in the equation for $t_{\textrm{em}}$, by default `1` (for more details see the description for function `solve_tem` below).
-    * `tem_precision` is the precision of the emission characteristic time $t_{em}$ evaluation, by default `1e-4` (Arseny: is it relative or absolute precision?).
+    * `tem_precision` is the relative precision of the emission characteristic time $t_{em}$ evaluation, by default `1e-4` .
 
 * `GR_pure_rotating(epsilon,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)`
-  returns the growth rate prediction for a purely rotating electric field, normalized to $1/\tau$. The parameters are the same as for `GR_CPSW` except for `epsilon` and `weff` which are not necessary here (Arseny: what do you mean by `epsilon` is not necessary?).
+  returns the growth rate prediction for a purely rotating electric field, normalized to $1/\tau$. The parameters are the same as for `GR_constant` except for `Nu` and `Nug` which are not necessary here.
 
-* `GR_CPSW_esp2weff(epsilon,esp2weff,Nu=1,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)`
-  does the same as `GR_CPSW` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$.
+* `GR_constant_esp2weff(epsilon,esp2weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)`
+  does the same as `GR_constant` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$.
 
 The following are intermediate or more specific functions for growth rate estimates.
 
-* `GR_CPSW_HighIntensity(epsilon,weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  returns the growth rate for a circularly polarized standing wave estimate using the high intensity part of the model, the result is normalized de $1/\tau$. The parameters are the same as for `GR_CPSW` except for `chi_switch` which is not needed here.
+* `GR_constant_HighIntensity(epsilon,weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)`
+  returns the growth rate estimate using the high intensity part of the model, the result is normalized de $1/\tau$. The parameters are the same as for `GR_constant` except for `chi_switch` which is not needed here.
 
-* `GR_CPSW_MidIntensity(epsilon,weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  returns the growth rate for a circularly polarized standing wave estimate using the lower and intermediate intensity part of the model, the result is normalized de $1/\tau$. The parameters are the same as for `GR_CPSW` except for `chi_switch` which is not needed here.
+* `GR_constant_MidIntensity(epsilon,weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)`
+  returns the growth rate estimate using the lower and intermediate intensity part of the model, the result is normalized de $1/\tau$. The parameters are the same as for `GR_constant` except for `chi_switch` which is not needed here.
 
-* `GR_CPSW_HighIntensity_eps2weff(epsilon,eps2weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  does the same as `GR_HighIntesity` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$. 
+* `GR_constant_HighIntensity_eps2weff(epsilon,eps2weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)`
+  does the same as `GR_constant,HighIntesity` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$. 
 
-* `GR_CPSW_MidIntensity_eps2weff(epsilon,eps2weff,Nu=1,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  does the same as `GR_midIntesity` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$.
+* `GR_constant_MidIntensity_eps2weff(epsilon,eps2weff,Nu,Nug,lambda=8e-7,beta=1,tem_precision=1e-4)`
+  does the same as `GR_constant,midIntesity` but using $\epsilon^2 \omega_{\rm eff}$ instead of $\omega_{\rm eff}$.
 
 * `GR_pure_rotating_HighIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)`
   returns the growth rate prediction for a purely rotating electric field normalized to $1/\tau$, using the high intensity part of the model. The parameters are the same as for `GR_pure_rotating` except for `chi_switch`which is not needed here.
@@ -81,8 +82,8 @@ The following are intermediate or more specific functions for growth rate estima
 * `GR_pure_rotating_MidIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)`
   returns the growth rate prediction for a purely rotating electric field normalized to $1/\tau$, using the lower and intermediate intensity part of the model. The parameters are the same as for `GR_pure_rotating` except for `chi_switch`which is not needed here.
 
-* `GR_steady_state(Wrad,Wcr,Nu)`
-  returns the value of the growth rate using the formula obtained from the quasi-steady state equations $\Gamma = \dfrac{W_{\mathrm{cr}} + \nu}{2}\left[\sqrt{1 + \frac{4W_{\mathrm{cr}}(2W_{\mathrm{rad}} - \nu)}{(W_{\mathrm{cr}} + \nu)^2}} -1 \right]$.
+* `GR_steady_state(Wrad,Wcr,Nu,Nug)`
+  returns the value of the growth rate using the formula obtained from the quasi-steady state equations $\Gamma = \dfrac{W_{\mathrm{cr}} + \nu + \nu_{\gamma}}{2}\left[\sqrt{1 + \frac{4 \left[W_{cr}(2W_{rad}- \nu) - \nu_{\gamma}\nu \right]}{(W_{cr} + \nu_{\gamma} + \nu)^2}} -1 \right]$.
 
 * `solve_tem(epsilon,weff,lambda=8e-7,beta=1,tem_precision=1e-4)`
   returns the characteristic time of emission $t_{em}$ as given by the equation $\int_0^{t_{\textrm{em}}}  W_{\textrm{CS}}(t') \textrm{d} t' = \beta$.
@@ -93,13 +94,13 @@ The following are intermediate or more specific functions for growth rate estima
     * `tem_precision` is the precision on $t_{em}$, by default `1e-4`.
 
 * `chi_em(epsilon,weff,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  returns the quantum parameter for a lepton initially at rest (Arseny: I disagree that it is initially at rest, because the formula tells only that the energy gained during the acceleration dominates the initial conditions. I would just remove "initially at rest") at the characteristic time of emission $t_{em}$. The parameters are the same as for `solve_tem`.
+  returns the quantum parameter for a lepton at the characteristic time of emission $t_{em}$. The parameters are the same as for `solve_tem`.
 
 * `gamma_em(epsilon,weff,lambda=8e-7,beta=1,tem_precision=1e-4)`
-  returns the Lorentz factor for a lepton initially at rest (Arseny: same here) at the characteristic time of emission $t_{em}$. The parameters are the same as for `solve_tem`.
+  returns the Lorentz factor for a lepton initially at the characteristic time of emission $t_{em}$. The parameters are the same as for `solve_tem`.
 
 * `int_Wncs(epsilon,weff,t,lambda=8e-7)`
-  returns the integral of the nonlinear Compton scattering rate over time `t` for a lepton, using classical trajectories given by the short-time dynamics model. The invariant `epsilon` should be normalized as the laser field strength $a_0 = \dfrac{e E}{mc\omega}$ and the effective frequency `weff` should be in units of $\omega$ (Arseny: maybe it's better to introduce the normalization only once at the beginning and not repeat this every time). `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
+  returns the integral of the nonlinear Compton scattering rate over time `t` for a lepton, using classical trajectories given by the short-time dynamics model. The invariant `epsilon` should be normalized as the laser field strength $a_0 = \dfrac{e E}{mc\omega}$ and the effective frequency `weff` should be in units of $\omega$. `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
 
   
 
@@ -109,13 +110,13 @@ Here are documented the functions needed for SFQED rates computations.
 
 #### Nonlinear Breit-Wheeler pair production
 
-* `Wnbw(gamma,chi,lambda)` returns the nonlinear Breit-Wheeler rate value for a gamma photon with the normalized energy `gamma` and quantum dynamical parameter `chi`. The result is normalized to the frequency $1/\tau$ (Arseny: normalized to the field period?) of a wave with wavelength `lambda` : $c/\lambda$. `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
+* `Wnbw(gamma,chi,lambda)` returns the nonlinear Breit-Wheeler rate value for a gamma photon with the normalized energy `gamma` and quantum dynamical parameter `chi`. The result is normalized to the field period  of a wave with wavelength `lambda` : $c/\lambda$. `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
 
 * `Wnbw_SI(gamma,chi)`
 returns the nonlinear Breit-Wheeler rate value in SI units ($\textrm{s}^{-1}$) for a gamma photon with the normalized energy `gamma` and quantum dynamical parameter `chi`.
 
 * `b0(chi)`
-returns the value of the function $b_0(\chi_{\gamma}) = \gamma_{\gamma} W_{\rm BW}(\chi_{\gamma},\gamma_{\gamma})/W_0$ (Arseny: introduce $W_0$ or cite your shower paper, we don't use this notation here) needed for the computation of the $W_{\rm BW}$ rate. The function has been tabulated and if the quantum parameter `chi` is between `0.01`and `10000` the function will return the value interpolated from the table. Outside of this range, it will return the values from the asymptotic formulas given by the functions `b0_high_chi(chi)` and `b0_low_chi(chi)`.
+returns the value of the function $b_0(\chi_{\gamma}) = \gamma_{\gamma} W_{\rm BW}(\chi_{\gamma},\gamma_{\gamma})/W_0$ (as defined [here](https://iopscience.iop.org/article/10.1088/1367-2630/ac1975/meta)), needed for the computation of the $W_{\rm BW}$ rate. The function has been tabulated and if the quantum parameter `chi` is between `0.01`and `10000` the function will return the value interpolated from the table. Outside of this range, it will return the values from the asymptotic formulas given by the functions `b0_high_chi(chi)` and `b0_low_chi(chi)`.
 
 * `b0_low_chi(chi)`
 returns the value of the $\chi_{\gamma} \ll 1$ asymptote given by $b_0(\chi_{\gamma}) \simeq 0.344 \times \chi_{\gamma} \exp(-\frac{8}{3\chi_{\gamma}})$.
@@ -128,8 +129,7 @@ returns the value of the function $b_0(\chi_{\gamma})$ without using the tables 
 
 * `compute_b0_table(filename)`
     generate a table for `b0`as a `.jld` file at the directory specified by `filename`. Note that the values of quantum parameter in the table are logarithmically spaced.
-
-    (Arseny: some edits are needed here) By default the parameters of this table are used in the package. However more arguments can be passed to tune the output: `compute_b0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
+     More arguments can be passed to tune the output: `compute_b0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
   * `Npoints_table`: number of points of the table, by default `30000`.
   * `min_chi`: minimum quantum parameter of the table, by default `0.01`.
   * `max_chi`: maximum quantum parameter of the table, by default `10000`.
@@ -137,13 +137,13 @@ returns the value of the function $b_0(\chi_{\gamma})$ without using the tables 
 
 #### Nonlinear inverse Compton scattering
 
-* `Wncs(gamma,chi,lambda)` returns the nonlinear Compton scattering rate value for a lepton with the Lorentz factor `gamma` and quantum dynamical parameter `chi`. The result is normalized to the frequency $1/\tau$ (Arseny: normalized to the field period?) of a wave with wavelength `lambda` : $c/\lambda$.  `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
+* `Wncs(gamma,chi,lambda)` returns the nonlinear Compton scattering rate value for a lepton with the Lorentz factor `gamma` and quantum dynamical parameter `chi`. The result is normalized to the field period of a wave with wavelength `lambda` : $c/\lambda$.  `lambda` is the reference laser wavelength, by default $\lambda = 0.8  \mu\rm{m}$.
 
 * `Wncs_SI(gamma,chi)`
 returns the nonlinear Compton scattering rate value in SI units ($\textrm{s}^{-1}$) for a lepton with the Lorentz factor `gamma` and quantum dynamical parameter `chi`.
 
 * `c0(chi)`
-returns the value of the function $c_0(\chi_{e}) = \gamma_{e} W_{\rm CS}(\chi_{e},\gamma_{e})/W_0$ needed for the computation of the $W_{\rm CS}$ rate. The function has been tabulated and if the quantum dynamical parameter `chi` is between `0.001`and `10000` the function will return the value interpolated from the table. Outside of this range, it will return the values from the asymptotic formulas given by the functions `c0_high_chi(chi)` and `c0_low_chi(chi)`.
+returns the value of the function $c_0(\chi_{e}) = \gamma_{e} W_{\rm CS}(\chi_{e},\gamma_{e})/W_0$(with $W_0$ defined [here](https://iopscience.iop.org/article/10.1088/1367-2630/ac1975/meta)), needed for the computation of the $W_{\rm CS}$ rate. The function has been tabulated and if the quantum dynamical parameter `chi` is between `0.001`and `10000` the function will return the value interpolated from the table. Outside of this range, it will return the values from the asymptotic formulas given by the functions `c0_high_chi(chi)` and `c0_low_chi(chi)`.
 
 * `c0_low_chi(chi)`
 returns the value of the $\chi_{e} \ll 1$ asymptote given by $c_0(\chi_{e}) \simeq 2.16 \times \chi_{e} $.
@@ -156,8 +156,7 @@ returns the value of the function $c_0(\chi_{e})$ without using the tables and a
 
 * `compute_c0_table(filename)`
     generate a table for `c0`as a `.jld` file at the directory specified by `filename`. Note that the values of the quantum dynamical parameter in the table are logarithmically spaced.
-
-   (Arseny: some edits are needed here) By default the parameters of this table are as used by the package. However more arguments can be passed to tune the output: `compute_c0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
+    More arguments can be passed to tune the output: `compute_c0_table(filename,Npoints_table,min_chi,max_chi,period_show_progress)`
   * `Npoints_table`: number of points of the table, by default `35000`.
   * `min_chi`: minimum quantum parameter of the table, by default `0.001`.
   * `max_chi`: maximum quantum parameter of the table, by default `10000`.
