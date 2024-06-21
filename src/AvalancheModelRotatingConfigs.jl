@@ -153,9 +153,9 @@ function GR_constant_eps2weff(epsilon,eps2weff,Nu,Nug,lambda=8e-7,chi_switch=10,
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     chi_em = chi_e(epsilon,weff,tem,lambda)
     if chi_em < chi_switch
-        return GR_constant_MidIntensity_esp2weff(epsilon,esp2weff,Nu,Nug,lambda,beta,tem_precision)
+        return GR_constant_MidIntensity_esp2weff(epsilon,eps2weff,Nu,Nug,lambda,beta,tem_precision)
     else 
-        return GR_constant_HighIntensity_esp2weff(epsilon,esp2weff,Nu,Nug,lambda,beta,tem_precision)
+        return GR_constant_HighIntensity_esp2weff(epsilon,eps2weff,Nu,Nug,lambda,beta,tem_precision)
     end
 end
 
