@@ -148,7 +148,7 @@ end
 
 export GR_constant_eps2weff
 
-function GR_CPSW_esp2weff(epsilon,esp2weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
+function GR_constant_esp2weff(epsilon,esp2weff,Nu,Nug,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
     tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
     chi_em = chi_e(epsilon,weff,tem,lambda)
     if chi_em < chi_switch
