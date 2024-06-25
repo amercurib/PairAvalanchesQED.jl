@@ -100,7 +100,7 @@ end
 export GR_pure_rotating_HighIntensity
 
 function GR_pure_rotating_HighIntensity(epsilon,lambda=8e-7,beta=1,tem_precision=1e-4)
-    GR_constant_HighIntensity(epsilon,0.5,0,0,lambda,beta,tem_precision)
+    return GR_constant_HighIntensity(epsilon,0.5,0,0,lambda,beta,tem_precision)
 end
 
 
