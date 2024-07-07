@@ -129,9 +129,9 @@ function invert_J_matrix(J,F_inv)
     nx,ny,nz = size(F_inv)[1:3]
     Jm1 = zeros((nx,ny,nz,4,4))
     for i = 1:nx, j = 1:ny, k = 1:nz
-        #Jloc =  J[i,j,k,:,:]
-        if F_inv[i,j,k] >0# &&linalg.det(Jloc) !=0 
-            Jm1[i,j,k,:,:] = linalg.inv(linalg.factorize(J[i,j,k,:,:]))
+        Jloc =  J[i,j,k,:,:]
+        if linalg.det(Jloc) !=0 
+            Jm1[i,j,k,:,:] = linalg.inv(linalg.factorize(Jloc))
         end
     end
     return Jm1
