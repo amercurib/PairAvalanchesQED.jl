@@ -218,7 +218,7 @@ In the following will be explained the intermediate functions used to build `wef
   * computes the $J$ matrix over space, and returns its values in a 5 dimensional array. `Eps_inv` is a 4 dimensional array of $\epsilon$ over space and `TF2` is the square matrix of the electromagnetic field components as given by the function `make_square_field_tensor`.
 
 * `invert_J_matrix(J,F_inv)`
-  invert the $J$ matrix for all points of space where `F_inv`is strictly positive.
+  invert the $J$ matrix for all points of space, if it is not invertible at a specific point, the function returns a $0$ matrix.
 
 * `computing_eigenvector_f1(Eps_inv,EB_T)`
   compute the eigen 4-vector components corresponding to the eigen value $\epsilon$ over space. `Eps_inv` is given by `computing_invariants` and `EB_T`is the same as for `weff_epsilon_from_field`.
