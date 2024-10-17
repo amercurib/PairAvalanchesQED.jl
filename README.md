@@ -236,3 +236,11 @@ In the following will be explained the intermediate functions used to build `wef
     * `f1` is the array of the components of the `f1` eigen 4-vector over space.
 
 
+## Dependencies
+
+This code uses the following other Julia packages:
+  * [Einsum.jl](https://github.com/ahwillia/Einsum.jl)
+  * [JLD.jl](https://github.com/JuliaIO/JLD.jl)
+  * [QuadGK.jl](https://github.com/JuliaMath/QuadGK.jl)
+  * [Roots.jl](https://github.com/JuliaMath/Roots.jl)
+  * [SpecialFunctions.jl](https://github.com/JuliaMath/SpecialFunctions.jl)
