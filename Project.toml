@@ -1,7 +1,7 @@
 name = "PairAvalanchesQED"
 uuid = "bd4b498a-a695-4147-a586-26c198ec51ab"
 authors = ["Anthony Mercuri-Baron <anthony.mercuri@protonmail.com>"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 Einsum = "b7d42ee7-0b51-5a75-98ca-779d3107e4c0"

@@ -136,8 +136,8 @@ end
 export GR_pure_rotating
 
 function GR_pure_rotating(epsilon,lambda=8e-7,chi_switch=10,beta=1,tem_precision=1e-4)
-    tem = solve_tem(epsilon,weff,lambda,beta,tem_precision)
-    chi_em = chi_e(epsilon,weff,tem,lambda)
+    tem = solve_tem(epsilon,0.5,lambda,beta,tem_precision) # for pure rotating field weff = 0.5 omega
+    chi_em = chi_e(epsilon,0.5,tem,lambda)
     if chi_em < chi_switch
         return GR_pure_rotating_MidIntensity(epsilon,lambda,beta,tem_precision)
     else 
